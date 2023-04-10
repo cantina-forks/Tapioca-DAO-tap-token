@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@boringcrypto/boring-solidity/contracts/BoringOwnable.sol";
 
-contract VwTap is ERC20Permit, BoringOwnable {
+contract TwTap is ERC20Permit, BoringOwnable {
     using SafeERC20 for IERC20;
 
     uint256 public constant DIST_PRECISION = 1e18;
@@ -15,7 +15,7 @@ contract VwTap is ERC20Permit, BoringOwnable {
     mapping(address => mapping(IERC20 => uint256)) public claimed;
     mapping(IERC20 => uint256) public distributedPerToken;
 
-    constructor() ERC20Permit("vwTAP") ERC20("vwTAP", "vwTAP") {}
+    constructor() ERC20Permit("twTAP") ERC20("twTAP", "twTAP") {}
 
     function claim(address to) public {
         _claim(msg.sender, to);
