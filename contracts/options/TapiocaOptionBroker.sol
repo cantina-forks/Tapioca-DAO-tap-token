@@ -202,6 +202,8 @@ contract TapiocaOptionBroker is
         (bool isPositionActive, LockPosition memory tOLPLockPosition) = tOLP
             .getLock(oTAPPosition.tOLP);
 
+        require(isPositionActive, "tOB: Option expired");
+
         uint256 cachedEpoch = epoch;
 
         PaymentTokenOracle memory paymentTokenOracle = paymentTokens[
@@ -213,8 +215,6 @@ contract TapiocaOptionBroker is
             paymentTokenOracle.oracle != IOracle(address(0)),
             "tOB: Payment token not supported"
         );
-
-        require(isPositionActive, "tOB: Option expired");
 
         // Get eligible OTC amount
         uint256 gaugeTotalForEpoch = singularityGauges[cachedEpoch][

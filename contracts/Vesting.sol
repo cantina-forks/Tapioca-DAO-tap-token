@@ -24,7 +24,7 @@ contract Vesting is BoringOwnable, ReentrancyGuard {
     uint256 public duration;
 
     /// @notice returns total available tokens
-    uint256 public seeded = 0;
+    uint256 public seeded;
 
     /// @notice user vesting data
     struct UserData {
@@ -165,9 +165,8 @@ contract Vesting is BoringOwnable, ReentrancyGuard {
     // ************************* //
     function _vested(uint256 _total) private view returns (uint256) {
         if (start == 0) return 0;
-        uint256 total = _total;
         if (block.timestamp < start + cliff) return 0;
-        if (block.timestamp >= start + duration) return total;
-        return (total * (block.timestamp - start)) / duration;
+        if (block.timestamp >= start + duration) return _total;
+        return (_total * (block.timestamp - start)) / duration;
     }
 }
